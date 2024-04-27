@@ -1,0 +1,26 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/country_informations/search_country":
+    get:
+      summary: Searches country information
+      tags:
+      - CountryInformations
+      parameters:
+      - name: country_name
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Country information found
+        '404':
+          description: Country information not found
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
