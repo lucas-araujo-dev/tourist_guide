@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::CountryInformations", type: :request do
-  describe "GET /search_country" do
-    let(:params) { { text: 'Brazil' } }
-    let(:do_request) { get api_v1_country_informations_search_country_path, params: params }
+RSpec.describe 'Api::V1::CountryInformations', type: :request do
+  describe 'GET /search_country' do
+    let!(:country_information) { create(:country_information, country_name: 'Brazil') }
+    let(:params) { { country_name: country_information.country_name } }
+    let(:do_request) { get api_v1_country_informations_search_country_path, params: }
 
     context 'when returns http success' do
       it do
