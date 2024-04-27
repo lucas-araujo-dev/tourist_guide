@@ -1,8 +1,6 @@
 class Api::V1::CountryInformationsController < ApplicationController
-
-
   def search_country
-    @country_information = CountryInformation.search_country_information(params[:text])
+    @country_information = CountryInformation.search(params[:country_name], params[:language])
 
     if @country_information
       render json: @country_information
