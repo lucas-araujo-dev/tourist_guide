@@ -3,8 +3,8 @@
 class FetchCountryInformationTranslation
   API_URL = 'https://api.cognitive.microsofttranslator.com/translate'
 
-  def initialize(country_information, language)
-    @country_information = country_information
+  def initialize(text, language)
+    @text = text
     @language = language
   end
 
@@ -13,7 +13,7 @@ class FetchCountryInformationTranslation
       req.body = [body].to_json
     end
 
-    JSON.parse(response.body)[0].dig('translations')[0]['text']
+    JSON.parse(response.body)[0].dig('translations')[0]['text'] if response.success?
   end
 
   private
@@ -35,7 +35,7 @@ class FetchCountryInformationTranslation
 
   def body
     {
-      'text' => @country_information.information
+      'text' => @text
     }
   end
 
