@@ -35,6 +35,13 @@ rspec spec
 rails s
 ```
 
+
+### Documentacao
+
+```
+locahost:3000/api-docs
+```
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
