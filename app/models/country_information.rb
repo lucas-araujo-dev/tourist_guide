@@ -7,7 +7,7 @@ class CountryInformation < ApplicationRecord
     if language.present? && country_information.present?
       search_translation(country_information, language)
     else
-      country_information.information
+      country_information
     end
   end
 
@@ -36,11 +36,11 @@ class CountryInformation < ApplicationRecord
   end
 
   def self.fetch_translation(country_information, language)
-    translation = FetchCountryInformationTranslation.new(country_information, language).call
+    translation = FetchCountryInformationTranslation.new(country_information.information, language).call
 
     return unless translation.present?
 
-    country_information.country_information_translations.create(translation:, language:).translation
+    country_information.country_information_translations.create(translation:, language:)
   end
 
   def self.fetch_information(data)
