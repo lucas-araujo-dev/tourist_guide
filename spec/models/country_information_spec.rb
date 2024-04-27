@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe CountryInformation, type: :model do
-  describe '.search_country_information' do
+  describe '.search' do
     let(:country_name) { 'Brazil' }
 
     context 'when country information is found in the database' do
       let!(:country_information) { create(:country_information, country_name:) }
 
       it 'returns the country information from the database' do
-        result = CountryInformation.search_country_information(country_name)
+        result = CountryInformation.search(country_name)
 
-        expect(result).to eq(country_information)
+        expect(result).to eq(country_information.information)
       end
     end
 
@@ -30,14 +30,14 @@ RSpec.describe CountryInformation, type: :model do
                                                                             }))
       end
       it 'fetches the country information from the API and saves it to the database' do
-        result = CountryInformation.search_country_information(country_name)
+        result = CountryInformation.search(country_name)
 
-        expect(result).to eq(CountryInformation.last)
+        expect(result).to eq(CountryInformation.last.information)
       end
     end
   end
 
-  describe '.search_translation' do
+  describe '.fetch_translation' do
     let(:country_information) { create(:country_information) }
     let(:language) { 'es' }
 
@@ -47,9 +47,9 @@ RSpec.describe CountryInformation, type: :model do
       end
 
       it 'returns the translation from the database' do
-        result = CountryInformation.search_translation(country_information, language)
+        result = CountryInformation.fetch_translation(country_information, language)
 
-        expect(result).to eq(country_information_translation)
+        expect(result).to eq(country_information_translation.translation)
       end
     end
 
@@ -59,14 +59,14 @@ RSpec.describe CountryInformation, type: :model do
       end
 
       it 'fetches the translation from the API and saves it to the database' do
-        result = CountryInformation.search_translation(country_information, language).translation
+        result = CountryInformation.fetch_translation(country_information, language)
 
         expect(result).to eq(CountryInformationTranslation.last.translation)
       end
     end
   end
 
-  describe '.fetch_information' do
+  describe '.normalize_information' do
     let(:data) do
       {
         'name' => { 'common' => 'Brazil' },
@@ -81,30 +81,9 @@ RSpec.describe CountryInformation, type: :model do
     end
 
     it 'returns the country information' do
-      result = CountryInformation.fetch_information(data)
+      result = CountryInformation.normalize_information(data)
 
       expect(result).to eq('Brazil is a country in South America. Its capital is Brasília. The population is 206135893. The area is 8515767 square kilometers. The currency is Brazilian real. The language is Portuguese. The flag: https://restcountries.com/data/bra.svg.')
-    end
-  end
-
-  describe '.create_country_information' do
-    let(:data) do
-      {
-        'name' => { 'common' => 'Brazil' },
-        'region' => 'South America',
-        'capital' => ['Brasília'],
-        'population' => 206_135_893,
-        'area' => 8_515_767,
-        'currencies' => { 'BRL' => { 'name' => 'Brazilian real' } },
-        'languages' => { 'pt' => 'Portuguese' },
-        'flags' => { 'alt' => 'https://restcountries.com/data/bra.svg' }
-      }
-    end
-
-    it 'creates the country information' do
-      result = CountryInformation.create_country_information(data)
-
-      expect(result).to eq(CountryInformation.last)
     end
   end
 end
