@@ -1,24 +1,42 @@
-# README
+# TouristGuideAPI
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API for searching tourist information, with language translation.
 
-Things you may want to cover:
+## Descrição
 
-* Ruby version
+API para busca de informações turísticas, com tradução de idiomas.
 
-* System dependencies
+## Feito com
+![Rails][Rails]![MySQL][MySQL]
 
-* Configuration
+### Dependências
 
-* Database creation
+* Rails 7.1.3
+* Ruby 3.3.0
+* MySQL
 
-* Database initialization
+### API Utilizadas
 
-* How to run the test suite
+#### RestCountries:
+API para buscar as informações sobre os países.
+#### Azure Translator:
+API para tradução de idiomas.
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+### Executando testes
 
-* ...
+```
+rspec spec
+```
+
+### Executando a aplicação
+
+```
+rails s
+```
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[Rails]: https://img.shields.io/badge/Rails-a40000?style=for-the-badge&logo=RubyonRails&logoColor=white
+[MySQL]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white
